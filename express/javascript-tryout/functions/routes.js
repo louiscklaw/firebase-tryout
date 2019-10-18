@@ -8,12 +8,15 @@ const admin = require( 'firebase-admin' );
 
 admin.initializeApp( functions.config().firebase );
 
+const FIGHTS_COLLECTION_NAME = 'fights';
+
 const db = admin.firestore();
 
 const GET_ENDPOINTS = {
     '/hello_get': hello_get,
     '/echo_get': echo_get,
-    '/fights': list_record
+    // '/get_fight/:id': get_fight,
+    '/list_fight': list_record
 }
 
 const POST_ENDPOINTS = {
@@ -27,19 +30,40 @@ const DELETE_ENDPOINTS = {};
 function creat_record ( req, res) {
     const { winner, losser, title } = req.body;
     const data = { winner, losser, title };
-    db.collection( 'fights' ).add( data )
+    db.collection( FIGHTS_COLLECTION_NAME ).add( data )
         .then( ( docRef ) => {
             res.json( {result: 'done', '_id': docRef.id} );
         });
 }
 
+function list_record_from_db () {
+    console.log( 'list record calling' );
+
+    var result = {};
+    let fightsRef = db.collection( FIGHTS_COLLECTION_NAME );
+    let allCities = fightsRef.get()
+        .then( snapshot => {
+            console.log( snapshot );
+    //         snapshot.forEach( doc => {
+    //             console.log( doc.id, '=>', doc.data() );
+    //         } );
+    //     } )
+    //     .catch( err => {
+    //         console.log( 'Error getting documents', err );
+        } );
+
+    return 'helloworld';
+}
+
 function list_record ( req, res ) {
-    const snapshot = db.collection( 'fights' ).get();
+    res.send( list_record_from_db());
+}
+
+function get_fight ( req, res ) {
 
 }
 
 function hello_get ( req, res ) {
-    console.log( req );
     res.send( 'hello get' );
 }
 
@@ -60,6 +84,16 @@ function echo_post ( req, res ) {
 module.exports.init_http_actions = ( express_app ) => {
     Object.keys( GET_ENDPOINTS ).forEach( endpoint_path => {
         express_app.get( endpoint_path, GET_ENDPOINTS[ endpoint_path ] );
+    } )
+
+    express_app.get( '/get_fight/:id', ( req, res ) => {
+        const fight_id = req.params.id;
+        console.log( fight_id );
+        db.collection( FIGHTS_COLLECTION_NAME ).doc( fight_id ).get()
+            .then( record => {
+                console.log( record );
+                // res.send( JSON.stringify( record ) )
+            } );
     } )
 
     Object.keys( POST_ENDPOINTS ).forEach( endpoint_path => {
