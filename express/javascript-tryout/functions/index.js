@@ -1,5 +1,5 @@
 const functions = require( 'firebase-functions' );
-const admin = require( 'firebase-admin' );
+// const admin = require( 'firebase-admin' );
 const express = require( 'express' );
 const bodyParser = require( 'body-parser' );
 
@@ -17,9 +17,6 @@ function say_hello( req, res ) {
 function say_test( req, res ) {
     res.send( 'say test' );
 }
-
-admin.initializeApp( functions.config().firebase );
-const db = admin.firestore();
 
 const api_js_test = express();
 const main = express();

@@ -7,9 +7,10 @@
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
+
     "docs": "jsdoc -c ../jsdoc.conf.json *.js -d ../docs",
-    "docs_w": "nodemon -w . --ext '*' --exec npm run docs",
-    "mocha_w": "nodemon -w . --ext '*.js' --exec mocha"
+    "docs_w": "nodemon -w . --ext '*' --exec 'npm run docs'",
+    "test_w": "nodemon -w . --ext '*.js' --exec 'sh ./run_test.sh'"
   },
   "engines": {
     "node": "8"
