@@ -1,0 +1,26 @@
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    title Hello Bulma!
+    link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.css")
+    script(src="https://use.fontawesome.com/releases/v5.3.1/js/all.js")
+    script(src="js/app.min.js")
+  body
+    section.section
+      .container
+        .columns.is-multiline
+          .column.is-one-quarter
+            h1.title.is-5 create
+          .column.is-one-quarter
+            h1.title.is-5 read
+          .column.is-one-quarter
+            h1.title.is-5 update
+          .column.is-one-quarter
+            h1.title.is-5 delete
+          .column.is-one-quarter
+            .column_container
+              h1.title.is-5 list
+              pre#list_result
+              a.button(onclick="click_list_all(this);") list all
