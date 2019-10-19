@@ -97,19 +97,6 @@ async function update_record ( id_in, title ) {
   return await get_record_by_id( id_in );
 }
 
-async function get_all_id () {
-  return db.collection( FIGHTS_COLLECTION_NAME ).get();
-}
-
-async function delete_all_record() {
-  return get_all_id()
-    .then( snapshots => {
-      snapshots.forEach( snapshot => {
-        console.log( `deleteing ${snapshot.id}` );
-        delete_record( snapshot.id );
-      })
-    } )
-}
 
 Object.keys( GET_ENDPOINTS ).forEach( endpoint_path => {
   console.log(`GET: ${endpoint_path}`);
@@ -121,21 +108,19 @@ api_js_test.get( '/fight/:id', async ( req, res ) => {
 } )
 
 api_js_test.put( '/fights/:id', async ( req, res ) => {
-  res.send( await update_record( req.params.id, req.body.title ) );
+  console.log( 'callme' );
+  res.send(await update_record( req.params.id, req.body.title ));
 })
 
-/**  delete single record */
+
 api_js_test.delete( '/fights/:id', async ( req, res ) => {
   res.send( await db_util.delete_record(req, res) );
 })
 
 
 if ( vars.debug ) {
-  console.log( 'debug active, enable delete_all' );
-
   api_js_test.get( '/db_util/delete_all', async ( req, res ) => {
-    console.log( 'delete all records' );
-    res.send( await delete_all_record() );
+    await db_util.delete_all_record( req, res );
   })
 }
 
