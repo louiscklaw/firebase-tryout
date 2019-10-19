@@ -1,15 +1,15 @@
-// npm install gulp gulp-pug gulp-less gulp-csso gulp-concat gulp-javascript-obfuscator gulp-rename --save -D
+// npm install gulp gulp-pug gulp-less gulp-csso gulp-concat gulp-javascript-obfuscator gulp-rename gulp-order --save -D
 const {
-    src,
-    dest,
-    parallel,
-    series
+  src,
+  dest,
+  parallel,
+  series
 } = require( 'gulp' );
 const pug = require( 'gulp-pug' );
 const less = require( 'gulp-less' );
 const minifyCSS = require( 'gulp-csso' );
 const concat = require( 'gulp-concat' );
-
+const order = require( 'gulp-order' );
 const rename = require( 'gulp-rename' );
 const javascriptObfuscator = require( 'gulp-javascript-obfuscator' );
 
@@ -28,37 +28,41 @@ console.log( SRC_DIR );
 
 function html() {
   return src( `${PAGES_DIR}/*.pug` )
-        .pipe(debug())
-        .pipe( pug() )
-        .pipe( dest( BUILD_DIR ) )
+    .pipe( debug() )
+    .pipe( pug() )
+    .pipe( dest( BUILD_DIR ) )
 }
 
 function css() {
-    return src( `${CSS_DIR}/*.less` )
-        .pipe( less() )
-        .pipe( minifyCSS() )
-        .pipe( dest( 'build/css' ) )
+  return src( `${CSS_DIR}/*.less` )
+    .pipe( less() )
+    .pipe( minifyCSS() )
+    .pipe( dest( 'build/css' ) )
 }
 
 function js() {
-    return src( `${JS_DIR}/*.js`, {
-            sourcemaps: true
+  return src( `${JS_DIR}/*.js`, {
+      sourcemaps: true
     } )
-        .pipe(debug())
-        .pipe( concat( 'app.min.js' ) )
-        .pipe( dest( `${BUILD_DIR}/js`, {
-            sourcemaps: true
-        } ) )
+    .pipe( order( [
+      '_*.js',
+      '*.js'
+    ] ) )
+    .pipe( debug() )
+    .pipe( concat( 'app.min.js' ) )
+    .pipe( dest( `${BUILD_DIR}/js`, {
+      sourcemaps: true
+    } ) )
 }
 
 function js_compress() {
-    return src( './build/js/app.js' )
-        .pipe( javascriptObfuscator( {
-            compact: true
-        } ) )
-        .pipe( rename( 'app.min.js' ) )
-        .pipe( sourcemaps.write() )
-        .pipe( dest( 'build/js', ) )
+  return src( './build/js/app.js' )
+    .pipe( javascriptObfuscator( {
+      compact: true
+    } ) )
+    .pipe( rename( 'app.min.js' ) )
+    .pipe( sourcemaps.write() )
+    .pipe( dest( 'build/js', ) )
 }
 
 exports.js = js;

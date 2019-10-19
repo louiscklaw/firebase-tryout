@@ -17,7 +17,7 @@ const GET_ENDPOINTS = {
   '/fights': db_util.get_records,
   '/hello_get': hello_get,
   '/echo_get': echo_get,
-  '/list_fight': list_record
+  // '/list_fight': list_record
 }
 
 const POST_ENDPOINTS = {
@@ -50,26 +50,31 @@ function echo_get( req, res ) {
   res.send( req.query );
 }
 
-function list_record_from_db() {
+function list_record_from_db(req, res) {
   console.log( 'list record calling' );
 
-  var result = {};
+
   let citiesRef = db.collection( 'fights' );
   let allCities = citiesRef.get()
     .then( snapshot => {
-      snapshot.forEach( doc => {
-        console.log( doc.id, '=>', doc.data() );
+      let result = {};
+      let _ = snapshot.forEach( doc => {
+        result[doc.id] = doc.data();
+        // console.log( doc.id, '=>', doc.data() );
+
       } );
+      res.send( result );
     } )
     .catch( err => {
       console.log( 'Error getting documents', err );
     } );
 
-  return 'helloworld';
+
 }
 
+// TODO: delete
 function list_record( req, res ) {
-  res.send( list_record_from_db() );
+  res.send( list_record_from_db(req, res) );
 }
 
 function echo_post( req, res ) {

@@ -13,14 +13,57 @@ html
         .columns.is-multiline
           .column.is-one-quarter
             h1.title.is-5 create
+
+            pre#create_result
+
+            input.input#create_winner(placeholder='winner')
+            input.input#create_losser(placeholder='losser')
+            input.input#create_title(placeholder="title")
+            a.button(onclick="clickCreate(this);") create record
+
           .column.is-one-quarter
             h1.title.is-5 read
+
+            pre#read_records
+            .select
+              select#read_records_list(onchange="onReadSelectChange(this)")
+
+            input.input#read_winner(placeholder='winner to read')
+            input.input#read_losser(placeholder='losser to read')
+            input.input#read_title(placeholder='title to read')
+
           .column.is-one-quarter
             h1.title.is-5 update
+            pre#update_records
+            .select
+              select#update_records_list(onchange="onUpdateSelectChange(this)")
+
+            input.input#update_winner(placeholder='winner to update')
+            input.input#update_losser(placeholder='losser to update')
+            input.input#update_title(placeholder='title to update')
+
+            button.button(onclick="updateRecord();") Update
+
           .column.is-one-quarter
             h1.title.is-5 delete
+            pre#delete_records
+            .select
+              select#delete_records_list(onchange="onDeleteSelectChange(this)")
+
+            button.button(onclick="deleteRecord();") Delete
+
           .column.is-one-quarter
             .column_container
               h1.title.is-5 list
-              pre#list_result
+              pre#list_all_result
               a.button(onclick="click_list_all(this);") list all
+          .column.is-one-quarter
+            .column_container
+              h1.title.is-5 hello_get
+              pre#hello_get
+              a.button(onclick="click_hello_get(this);") hello get
+          .column.is-one-quarter
+            .column_container
+              h1.title.is-5 echo_get
+              pre#echo_get
+              a.button(onclick="click_echo_get(this);") echo get

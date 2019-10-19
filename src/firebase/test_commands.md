@@ -14,7 +14,7 @@ $ curl -G "http://localhost:5000/test-firebase-3a0f6/us-central1/main/api/jstest
 > [{"id":"zC9QORei07hklkKUB1Gl","data":{"title":"fight1","winner":"levi","losser":"henry"}}]
 
 # Testing update a fight (PUT /fights/:id)
-$ curl -d '{"title": "new fight title"}' -H "Content-Type: application/json" -X PUT "http://localhost:5000/test-firebase-3a0f6/us-central1/main/api/jstest/fights/7Zr1i9tFgtApaAdHGWlU/"
+$ curl -d '{"title": "new fight title"}' -H "Content-Type: application/json" -X PUT "http://localhost:5000/test-firebase-3a0f6/us-central1/main/api/jstest/fights/irAUmIlnvuzVVCdIj55e/"
 
 > {"id":"zC9QORei07hklkKUB1Gl","data":{"title":"new fight title"}}
 
