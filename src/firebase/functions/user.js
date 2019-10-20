@@ -26,6 +26,26 @@ function get_user_snapshot() {
   return db.collection(USER_COLLECTION_NAME).get();
 }
 
+function prepare_collection () {
+  return db.collection( USER_COLLECTION_NAME );
+}
+
+function select_user_by_name (username) {
+  return prepare_collection().where('username','==',username);
+}
+
+function select_user_by_id ( id ) {
+  return prepare_collection().where( 'id', '==', id );
+}
+
+function delete_user_by_id ( id ) {
+  return db.collection( USER_COLLECTION_NAME ).doc(id).delete();
+}
+
+function delete_user_by_name ( username ) {
+
+}
+
 async function get_all_users() {
   let userlist = {};
   await get_user_snapshot().then(ss => {
@@ -73,9 +93,21 @@ async function handle_create_user(req, res) {
   }
 }
 
+async function handle_delete_user ( req, res ) {
+  try {
+    let id = req.params.id;
+    let user = await delete_user_by_id( id );
+    res.send( { result: 'done' } );
+  } catch (err) {
+    res.send( { result: 'err' } );
+    throw new Error( err );
+  }
+}
+
 module.exports = {
   login: handle_login,
   logout: handle_logout,
   list_user: handle_list_user,
-  create_user: handle_create_user
+  create_user: handle_create_user,
+  delete_user: handle_delete_user
 };

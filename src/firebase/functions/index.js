@@ -145,3 +145,8 @@ api_js_test.get("/list_user", async (req, res) => {
 api_js_test.post("/create_user", async (req, res) => {
   await user.create_user(req, res);
 });
+
+api_js_test.delete( '/user/:id', async ( req, res ) => {
+
+  user.delete_user( req, res );
+})
