@@ -3,6 +3,10 @@ var db = vars.db;
 
 const FIGHTS_COLLECTION_NAME = vars.collection_name;
 
+const env = require(`${__dirname}/env.js`)
+
+const err = require(`${env.FUNCTION_HOME}/err.js`);
+
 async function get_records( req, res ) {
   return await db.collection( FIGHTS_COLLECTION_NAME ).get()
     .then( records => {
@@ -61,7 +65,13 @@ function say_test( req, res ) {
 }
 
 async function delete_record_db ( id_in ) {
-  await db.collection( FIGHTS_COLLECTION_NAME ).doc( id_in ).delete();
+  try {
+    await db.collection( FIGHTS_COLLECTION_NAME ).doc( id_in ).delete();
+    return { result: 'done' };
+  } catch (err) {
+    return {result: 'err'}
+  }
+
 }
 
 async function delete_record( req, res ) {
@@ -69,9 +79,9 @@ async function delete_record( req, res ) {
     var id_in = req.params.id;
     let _ = await delete_record_db( id_in );
 
-    res.send( {result: 'done'} );
+    return _;
   } catch ( err ) {
-    res.send( {result: 'fail'} );
+    return _;
   }
 }
 

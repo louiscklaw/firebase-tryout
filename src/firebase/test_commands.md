@@ -25,3 +25,10 @@ $ curl -X DELETE "http://localhost:5000/test-firebase-3a0f6/us-central1/main/api
 
 # Testing delete all fight (GET /fight/delete_all)
 $ curl -G "http://localhost:5000/test-firebase-3a0f6/us-central1/main/api/jstest/db_util/delete_all"
+
+
+<!-- login -->
+# Testing create user (POST /fights)
+$ curl -d '{"username":"testuser", "password":"testpassword"}' -H "Content-Type: application/json" -X POST "http://localhost:5000/test-firebase-3a0f6/us-central1/main/api/jstest/create_user"
+
+$ curl -G "http://localhost:5000/test-firebase-3a0f6/us-central1/main/api/jstest/list_user/"

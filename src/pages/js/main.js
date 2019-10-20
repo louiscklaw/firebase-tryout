@@ -25,6 +25,12 @@ function create_json_put_config( json_in ) {
   };
 }
 
+const create_delete_config = ( ) => {
+  return {
+    ...METHOD_DELETE
+  };
+}
+
 function create_json_post_config( json_in ) {
   return {
     ...METHOD_POST,
@@ -41,6 +47,7 @@ function clickCreate() {
     } ) )
     .then( res => res.json() )
     .then( res_json => {
+      refreshLists();
       get_ele( '#create_result' ).innerHTML = JSON.stringify( res_json );
     } )
 
@@ -77,16 +84,21 @@ function fetch_records() {
     .then( res => res.json() );
 }
 
-function prepareRecordList( ele_in ) {
+function prepareRecordList ( eles_in ) {
+
   fetch_records()
     .then( res_json => {
-      Object.keys( res_json ).forEach( _id => {
-        var sel = ele_in;
-        var opt1 = document.createElement( "option" );
-        opt1.value = _id;
-        opt1.text = _id;
-        sel.add( opt1, null );
-      } );
+      eles_in.forEach( ele_in => {
+        emptyList(ele_in);
+        Object.keys( res_json ).forEach( _id => {
+          var sel = ele_in;
+          var opt1 = document.createElement( "option" );
+          opt1.value = _id;
+          opt1.text = _id;
+          sel.add( opt1, null );
+        } );
+      })
+
 
     } )
 }
@@ -131,7 +143,20 @@ function updateRecord() {
     .then( res_json => {
       get_ele( '#update_records' ).innerHTML = JSON.stringify( res_json );
     } )
+}
 
+function deleteRecord () {
+  let id = get_ele( '#delete_records_list' ).value;
+
+  let fetch_url = `${API_PATH}/fights/${id}`;
+
+  fetch(fetch_url , create_delete_config() )
+  .then( res_json => {
+    get_ele( '#update_records' ).innerHTML = JSON.stringify( res_json );
+  } )
+    .then( () => {
+      refreshLists();
+  })
 }
 
 function onReadSelectChange( ele_in ) {
@@ -139,10 +164,23 @@ function onReadSelectChange( ele_in ) {
   readRecord( id_to_read );
 }
 
+function emptyList ( ele_in ) {
+  _.range( ele_in.options.length ).forEach( idx => {
+    ele_in.remove( 0 );
+  })
+
+}
+
+function refreshLists () {
+  prepareRecordList( [
+    get_ele( '#read_records_list' ),
+    get_ele( '#update_records_list' ),
+    get_ele( '#delete_records_list' )
+  ] );
+}
+
 document.addEventListener( "DOMContentLoaded", function () {
   console.log( "helloworld" );
 
-  prepareRecordList( get_ele( '#read_records_list' ) );
-  prepareRecordList( get_ele( '#update_records_list' ) );
-  prepareRecordList( get_ele( '#delete_records_list' ) );
+  refreshLists();
 } );
