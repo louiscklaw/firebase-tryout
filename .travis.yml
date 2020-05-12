@@ -18,11 +18,11 @@ jobs:
         - curl -sL https://firebase.tools | bash
       script:
         - cd firebase-hosting-tryout
-        - build.sh
+        - ./build.sh
         - cd ..
 
         - cd firebase-functions-tryout
-        - build.sh
+        - ./build.sh
         - cd ..
 
     - stage: Merge
