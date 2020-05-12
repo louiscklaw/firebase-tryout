@@ -1,4 +1,8 @@
 
+language: node_js
+node_js:
+  - 8
+
 import:
   - credentials.yml
   - firebase_credentials.yml
@@ -7,6 +11,8 @@ jobs:
   include:
     - stage: Deploy
       name: deploy to firebase
+      install:
+        - curl -sL https://firebase.tools | bash
       script:
         - firebase deploy \
           --project $FIREBASE_PROJECT \
