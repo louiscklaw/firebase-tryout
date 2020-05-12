@@ -23,7 +23,7 @@ jobs:
           --only hosting:production \
           --token $FIREBASE_TOKEN \
           --non-interactive
-        cd ..
+        - cd ..
 
     - stage: Merge
       script:
