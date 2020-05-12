@@ -3,6 +3,9 @@ language: node_js
 node_js:
   - 8
 
+cache:
+  npm: true
+
 import:
   - credentials.yml
   - firebase_credentials.yml
