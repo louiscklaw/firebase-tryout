@@ -1,15 +1,20 @@
 
+import:
+  - credentials.yml
+  - firebase_credentials.yml
+
 jobs:
   include:
+    - stage: Deploy
+      name: deploy to firebase
+      script:
+        - firebase deploy \
+          --project $FIREBASE_PROJECT \
+          --only hosting:production \
+          --token $FIREBASE_TOKEN \
+          --non-interactive
+
     - stage: Merge
       script:
         - wget https://raw.githubusercontent.com/louiscklaw/travis-playlist/master/travis-build-merger/merge_if_success.sh
         - bash merge_if_success.sh | tee merge.log
-
-    - stage: Deploy
-      name: deploy to firebase
-      script:
-        - hostname
-
-import:
-  - credentials.yml
