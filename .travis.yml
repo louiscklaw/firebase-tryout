@@ -17,7 +17,7 @@ jobs:
       install:
         - curl -sL https://firebase.tools | bash
       script:
-        - cd firebase-hosting-tryout
+        - cd test_deploy
         - firebase deploy \
           --project $FIREBASE_PROJECT \
           --only hosting:production \
