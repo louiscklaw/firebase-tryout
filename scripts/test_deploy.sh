@@ -3,13 +3,11 @@
 set -ex
 
 cd firebase-hosting-tryout
-  firebase deploy  --non-interactive --project $FIREBASE_PROJECT --token $FIREBASE_TOKEN &
+  ./build.sh
 cd ..
 
 cd firebase-functions-tryout
-  firebase deploy  --non-interactive --project $FIREBASE_PROJECT --token $FIREBASE_TOKEN &
+  ./build.sh
 cd ..
-
-wait
 
 exit 0
