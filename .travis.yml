@@ -18,11 +18,7 @@ jobs:
         - curl -sL https://firebase.tools | bash
       script:
         - cd test_deploy
-        - firebase deploy \
-          --project $FIREBASE_PROJECT \
-          --only hosting:production \
-          --token $FIREBASE_TOKEN \
-          --non-interactive
+        - firebase deploy --non-interactive --project $FIREBASE_PROJECT --token $FIREBASE_TOKEN
         - cd ..
 
     - stage: Merge
