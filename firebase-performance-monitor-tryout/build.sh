@@ -9,4 +9,4 @@ npm install
 # resource-name — the name of the Hosting site as listed in your Firebase project
 
 # firebase target:apply hosting performance-monitor-tryout performance-monitor
-firebase deploy --only hosting:performance-monitor
+firebase deploy --only hosting:performance-monitor-tryout
