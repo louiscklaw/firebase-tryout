@@ -1,0 +1,11 @@
+{
+  "hosting": [ {
+    "target": "performance-monitor-tryout",
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  } ]
+}
