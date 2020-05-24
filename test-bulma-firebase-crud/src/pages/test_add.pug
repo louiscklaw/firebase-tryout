@@ -1,0 +1,14 @@
+extends pug_inc/layout/layout-bulma.pug
+include pug_inc/mixins.pug
+
+block title
+  title test_add
+
+block append content
+  +breadcrumb(['components','crud_test','add'])
+
+  h3.subtitle.is-3 test_add
+  include pug_inc/forms/form_test_add.pug
+
+block script
+  script(src="js/test_add.js")

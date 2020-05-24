@@ -1,0 +1,18 @@
+extends inc/layout-single-column.pug
+include mixins.pug
+
+include ../nav/mixins.pug
+block navbar
+  +navbar('debug_crud')
+
+
+block head_append
+  link(rel="stylesheet", href="https://www.gstatic.com/firebasejs/ui/4.2.0/firebase-ui-auth.css")
+
+  script(src="https://www.gstatic.com/firebasejs/7.2.1/firebase-app.js")
+  script(src="https://www.gstatic.com/firebasejs/7.2.1/firebase-auth.js")
+  script(src="https://www.gstatic.com/firebasejs/ui/4.2.0/firebase-ui-auth.js")
+
+  script(src="js/firebase_auth/config.js")
+  script(src="js/firebase_auth/common.js")
+  script(src="js/firebase_auth/app.js")

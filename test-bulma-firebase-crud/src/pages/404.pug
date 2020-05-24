@@ -1,0 +1,12 @@
+extends pug_inc/layout/layout-bulma.pug
+include pug_inc/mixins.pug
+
+block title
+  title page1
+
+block append content
+  section.section
+    .container
+      +breadcrumb(['pages','404'])
+
+      h1.subtitle.is-1 page 404

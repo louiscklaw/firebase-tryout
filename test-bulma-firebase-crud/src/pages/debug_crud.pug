@@ -1,0 +1,19 @@
+extends pug_inc/layout/layout-debug-crud.pug
+
+block title
+  title debug_crud
+
+//- block sidebar
+  //- p helloworld
+//-   //- include pug_inc/sidebar/debug_sidemenu.pug
+//-   //- include sidebar.pug
+
+block content
+  .column.is-full
+    include pug_inc/debug/test.pug
+
+block script
+  script(src="/js/debug_crud.js")
+  script(src="/js/firebase_debug.js")
+
+  //- script(src="/js/firebase_auth.js")

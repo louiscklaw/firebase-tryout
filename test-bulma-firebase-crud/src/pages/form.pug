@@ -1,0 +1,13 @@
+extends pug_inc/layout/layout-bulma.pug
+include pug_inc/mixins.pug
+
+block title
+  title form
+
+block append content
+  section.section
+    .container
+      +breadcrumb(['components','input'])
+
+      h3.subtitle.is-3 form
+      include pug_inc/static/bulma_form.html

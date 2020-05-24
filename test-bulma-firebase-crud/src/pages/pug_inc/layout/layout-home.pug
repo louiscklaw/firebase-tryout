@@ -1,0 +1,9 @@
+extends inc/layout-main.pug
+include mixins.pug
+
+include ../nav/mixins.pug
+block navbar
+  +navbar('Home')
+
+block sidebar
+  include ../sidebar/home_sidemenu.pug

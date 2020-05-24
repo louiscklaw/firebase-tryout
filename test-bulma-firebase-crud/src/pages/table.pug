@@ -1,0 +1,14 @@
+extends pug_inc/layout/layout-bulma.pug
+include pug_inc/mixins.pug
+
+block title
+  title tables
+
+block append content
+  section.section
+    .container
+      +breadcrumb(['components','table'])
+
+      h1.subtitle.is-1 Tables
+      h3.subtitle.is-3 bulma tables
+      include pug_inc/static/bulma_tables.html

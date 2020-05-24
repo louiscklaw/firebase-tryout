@@ -1,0 +1,31 @@
+
+include meta.pug
+
+link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
+link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700")
+
+link(rel="stylesheet", href="https://unpkg.com/bulma@0.8.0/css/bulma.min.css")
+
+script(src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js")
+
+script(src="https://use.fontawesome.com/releases/v5.3.1/js/all.js")
+
+script(src="https://cdn.jsdelivr.net/npm/pjax/pjax.js")
+
+
+
+script(src="https://www.gstatic.com/firebasejs/6.0.1/firebase.js")
+script(src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js")
+link(rel="stylesheet", href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css")
+
+include test-firebase-head.pug
+
+
+
+include utils/sentry/sentry.html
+include utils/google_analytics/ga.html
+
+link(rel="stylesheet", href="css/admin.css")
+link(rel="stylesheet", href="css/style.css")
+
+block head_append

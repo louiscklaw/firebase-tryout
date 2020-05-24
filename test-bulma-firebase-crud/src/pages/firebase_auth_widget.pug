@@ -1,0 +1,11 @@
+extends pug_inc/firebase/default_html.pug
+
+block head
+  script(src="https://www.gstatic.com/firebasejs/6.0.1/firebase.js")
+  script(src="https://www.gstatic.com/firebasejs/ui/4.2.0/firebase-ui-auth.js")
+  link(rel="stylesheet", href="https://www.gstatic.com/firebasejs/ui/4.2.0/firebase-ui-auth.css")
+
+  script(src="js/firebase_auth.js")
+
+block body
+  #firebaseui-auth-container
