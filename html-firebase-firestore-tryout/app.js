@@ -33,11 +33,40 @@ function renderCafe(doc){
 }
 
 // getting data
-db.collection('cafes').get().then((snapshot) => {
-  snapshot.docs.forEach((doc) => {
-    renderCafe(doc)
-  })
+// db.collection('cafes').where(
+//   'city','==','test city3'
+// ).get().then((snapshot) => {
+//   snapshot.docs.forEach((doc) => {
+//     renderCafe(doc)
+//   })
+// })
 
+// order output data
+// db.collection('cafes').orderBy('city').get().then((snapshot) => {
+//   snapshot.docs.forEach((doc) => {
+//     renderCafe(doc)
+//   })
+// })
+
+// // get all data
+// db.collection('cafes').get().then((snapshot) => {
+//   snapshot.docs.forEach((doc) => {
+//     renderCafe(doc)
+//   })
+// })
+
+// real-time listener
+db.collection('cafes').orderBy('city').onSnapshot(snapShot => {
+  let changes = snapShot.docChanges();
+  changes.forEach( change => {
+    console.log(change.doc.data())
+    if (change.type == 'added'){
+      renderCafe(change.doc)
+    }else if(change.type == 'removed'){
+      let li = cafeList.querySelector('[data-id='+change.doc.id+']');
+      cafeList.removeChild(li)
+    }
+  })
 })
 
 // saving data
@@ -50,3 +79,9 @@ form.addEventListener('submit', (e) => {
   form.name.value = '';
   form.city.value = '';
 })
+
+// update document
+// db.collection('cafes').doc('OE7RnnUWk0ymPRYOphRQ').update({name:"test new name", city:"test new city"})
+
+// set document overwrite document
+// db.collection('cafes').doc('OE7RnnUWk0ymPRYOphRQ').set({city:"test new city"})
