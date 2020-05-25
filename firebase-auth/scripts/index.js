@@ -1,16 +1,24 @@
 const guideList = document.querySelector( '.guides' )
 const loggedOutLinks = document.querySelectorAll( '.logged-out' );
 const loggedInLinks = document.querySelectorAll( '.logged-in' );
-const accountDetails = document.querySelector('.account-details')
+const accountDetails = document.querySelector( '.account-details' )
 
 
 const setupUI = ( user ) => {
-  if ( user ) {
-    const html =`
-      <div>logged in as ${user.email}</div>
-    `
+  // remember update firebase rules
+  // match /users/{userId} {
+  //   allow create: if request.auth.uid != null
+  //   allow read: if request.auth.uid == userId
+  // }
 
-    accountDetails.innerHTML = html;
+  if ( user ) {
+    db.collection( 'users' ).doc( user.uid ).get().then( ( doc ) => {
+      const html = `
+        <div>logged in as ${user.email}</div>
+        <div>${doc.data().bio}</div>
+        `
+      accountDetails.innerHTML = html;
+    } )
 
     loggedInLinks.forEach( item => item.style.display = 'block' )
     loggedOutLinks.forEach( item => item.style.display = 'none' )
