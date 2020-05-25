@@ -1,17 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.css" media="screen,projection" />
 
-  <link rel="stylesheet" href="style.css">
-
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
+
 <body>
-  helloworld google auth
+
+  <div style="text-align:center; padding-top: 50px;"> helloworld google auth </div>
+  <div style="text-align:center; padding-top: 50px; padding-bottom: 10px;">
+    current user
+    <div id="current_user"></div>
+  </div>
+
+
+
+  <div style="width:50%; margin: auto; text-align:center;">
+
+    <button style="display:none; margin:auto;" class="waves-effect waves-light btn" id="btn_login">login</button>
+    <button style="display:none; margin:auto;" class="waves-effect waves-light btn" id="btn_logout">logout</button>
+
+  </div>
+
+
   <div id="firebaseui-auth-container"></div>
+
+  <!--JavaScript at end of body for optimized loading-->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.js">
+  </script>
+
 
   <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-auth.js"></script>
@@ -19,7 +43,6 @@
 
 
   <script>
-    // Your web app's Firebase configuration
     var firebaseConfig = {
       apiKey: "AIzaSyBnmrMAfoQvVRgXCIPG2wLiGO15s7u4bRY",
       authDomain: "fir-tryout-f4e7a.firebaseapp.com",
@@ -31,50 +54,51 @@
       measurementId: "G-Z001Y7HBM2"
     };
     // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
+    firebase.initializeApp( firebaseConfig );
     const auth = firebase.auth();
 
-    var ui = new firebaseui.auth.AuthUI(auth);
 
-    var uiConfig = {
-      callbacks: {
-        signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-          // User successfully signed in.
-          // Return type determines whether we continue the redirect automatically
-          // or whether we leave that to developer to handle.
-          return true;
-        },
-        uiShown: function() {
-          // The widget is rendered.
-          // Hide the loader.
-          document.getElementById('loader').style.display = 'none';
-        }
-      },
-      // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-      signInFlow: 'popup',
-      signInSuccessUrl: 'auth_success.html',
-      signInOptions: [
-        // Leave the lines as is for the providers you want to offer your users.
-        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-        firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-        firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-        firebase.auth.GithubAuthProvider.PROVIDER_ID,
-        firebase.auth.EmailAuthProvider.PROVIDER_ID,
-        firebase.auth.PhoneAuthProvider.PROVIDER_ID
-      ],
-      // Terms of service url.
-      tosUrl: 'terms_of_services.html',
-      // Privacy policy url.
-      privacyPolicyUrl: 'privacy.html'
-    };
+    var signin_button = document.querySelector( '#btn_login' )
+    var signout_button = document.querySelector( '#btn_logout' )
+    var current_user_label = document.querySelector( '#current_user' )
 
-    ui.start('#firebaseui-auth-container', uiConfig);
+    window.addEventListener( "DOMContentLoaded", () => {
+      signin_button.addEventListener( 'click', () => {
+        var provider = new firebase.auth.GoogleAuthProvider();
+        // provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+        provider.setCustomParameters( {
+          'login_hint': 'user@example.com'
+        } );
+        firebase.auth().signInWithPopup( provider )
+          .then( function ( datosUsuario ) {
+            console.log( datosUsuario );
+          } ).catch( function ( error ) {
+            console.log( error );
+          } )
+      } )
+    } )
 
+    window.addEventListener( "DOMContentLoaded", () => {
+      signout_button.addEventListener( 'click', () => {
+        auth.signOut();
+      } )
+    } )
 
-
+    auth.onAuthStateChanged( user => {
+      if ( user ) {
+        current_user_label.innerHTML = `<div>${user.displayName}</div>`
+        console.log( "user logged in" )
+        signin_button.style.display="none"
+        signout_button.style.display="block"
+      } else {
+        current_user_label.innerHTML = `<div>user not logged in</div>`
+        console.log( 'user not logged in' )
+        signin_button.style.display="block"
+        signout_button.style.display="none"
+      }
+    } )
   </script>
-
-
-  <script src="app.js" ></script>
+  <!-- <script src="app.js"></script> -->
 </body>
+
 </html>
