@@ -1,3 +1,16 @@
+// add admin cloud function
+// remember adding firebase rules
+const adminForm = document.querySelector('.admin-actions');
+adminForm.addEventListener('submit',(e) => {
+  e.preventDefault();
+  const adminEmail = document.querySelector('#admin-email').value;
+  const addAdminRole = functions.httpsCallable('addAdminRole')
+
+  addAdminRole({email: adminEmail}).then(result => {
+    console.log(result)
+  })
+})
+
 
 // listen for auth status change
 auth.onAuthStateChanged( user => {
@@ -5,12 +18,15 @@ auth.onAuthStateChanged( user => {
   // user logout get null
 
     if(user){
-      // console.log('user logged in: ', user)
+      user.getIdTokenResult().then(idTokenResult => {
+        user.admin = idTokenResult.claims.admin
+        setupUI(user)
+      })
 
       // show users the record
       db.collection('guides').onSnapshot((snapshot) => {
         setupGuides(snapshot.docs)
-        setupUI(user)
+
       }, err => {
         console.log('error found on guides')
       })
@@ -25,6 +41,12 @@ auth.onAuthStateChanged( user => {
 } )
 
 // create new guide
+// remember add firebase rule
+// match /guides/{guideId} {
+//   allow read: if request.auth.uid != null
+//   allow write: if request.auth.token.admin == true
+// }
+
 const createForm = document.querySelector('#create-form');
 createForm.addEventListener('submit',(e) => {
   e.preventDefault();
@@ -60,6 +82,10 @@ signupForm.addEventListener( 'submit', ( e ) => {
     const modal = document.querySelector( '#modal-signup' );
     M.Modal.getInstance( modal ).close();
     signupForm.reset();
+    signupForm.querySelector('.error').innerHTML = ''
+
+  }).catch((err) => {
+    signupForm.querySelector('.error').innerHTML = err.message
   });
 } );
 
