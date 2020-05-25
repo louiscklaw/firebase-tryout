@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.css" media="screen,projection" />
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+  <div style="margin: auto; width: 80%; text-align: center;">
+    <div style="text-align:center; padding-top: 50px;"> helloworld github auth </div>
+    <a href="https://firebase.google.com/docs/auth/web/github-auth">
+      https://firebase.google.com/docs/auth/web/github-auth
+    </a>
+
+    <div style="text-align:center; padding-top: 50px; padding-bottom: 10px;">
+      current user
+      <div id="current_user"></div>
+    </div>
+
+    <div style="text-align:center; padding-top: 50px; padding-bottom: 10px;">
+      phoro_url
+      <div id="photo_url"></div>
+    </div>
+
+
+
+    <button style="display:none; margin:auto;" class="waves-effect waves-light btn" id="btn_login">login</button>
+    <button style="display:none; margin:auto;" class="waves-effect waves-light btn" id="btn_logout">logout</button>
+
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-auth.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyBnmrMAfoQvVRgXCIPG2wLiGO15s7u4bRY",
+      authDomain: "fir-tryout-f4e7a.firebaseapp.com",
+      databaseURL: "https://fir-tryout-f4e7a.firebaseio.com",
+      projectId: "fir-tryout-f4e7a",
+      storageBucket: "fir-tryout-f4e7a.appspot.com",
+      messagingSenderId: "859668436628",
+      appId: "1:859668436628:web:32fcc829845132db900681",
+      measurementId: "G-Z001Y7HBM2"
+    };
+    // Initialize Firebase
+    firebase.initializeApp( firebaseConfig );
+    const auth = firebase.auth();
+
+
+    var signin_button = document.querySelector( '#btn_login' )
+    var signout_button = document.querySelector( '#btn_logout' )
+    var current_user_label = document.querySelector( '#current_user' )
+    var ele_photo_url = document.querySelector('#photo_url')
+
+    window.addEventListener( "DOMContentLoaded", () => {
+      signin_button.addEventListener( 'click', () => {
+        var provider = new firebase.auth.GithubAuthProvider();
+        // provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+        provider.setCustomParameters( {
+          'login_hint': 'user@example.com'
+        } );
+        firebase.auth().signInWithPopup( provider )
+          .then( function ( datosUsuario ) {
+            console.log( datosUsuario );
+          } ).catch( function ( error ) {
+            console.log( error );
+          } )
+      } )
+    } )
+
+
+
+
+
+
+
+    auth.onAuthStateChanged( user => {
+      if ( user ) {
+        console.log( "user logged in" )
+        console.log(user)
+        var photo_url = user.photoURL
+
+        current_user_label.innerHTML = `<div>${user.displayName}</div>`
+        ele_photo_url.innerHTML = `<a href=${photo_url}>${photo_url}</a>`
+        signin_button.style.display = "none"
+        signout_button.style.display = "block"
+      } else {
+        console.log( 'user not logged in' )
+
+        current_user_label.innerHTML = `<div>user not logged in</div>`
+        signin_button.style.display = "block"
+        signout_button.style.display = "none"
+      }
+    } )
+  </script>
+
+
+  <script src="app.js"></script>
+</body>
+
+</html>
