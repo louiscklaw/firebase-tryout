@@ -8,5 +8,5 @@ set -ex
 
 cd functions
   npm install
-  firebase deploy
+  firebase deploy -f --non-interactive --only functions:helloWorld
 cd ..
