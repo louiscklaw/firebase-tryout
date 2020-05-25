@@ -4,4 +4,4 @@ set -ex
 
 npm install
 
-firebase deploy  --non-interactive --token $FIREBASE_TOKEN
+firebase deploy -f --non-interactive --token $FIREBASE_TOKEN
