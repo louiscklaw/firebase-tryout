@@ -5,15 +5,16 @@ var admin = require( 'firebase-admin' );
 admin.initializeApp();
 
 function createUser(i){
+  let user_email = `user${i}@example.com`
   return admin.auth().createUser( {
-    email: `user${i}@example.com`,
+    email: user_email,
     emailVerified: true,
     disabled: false,
     password: '123321',
     displayName: `user ${i}`,
   } )
   .then( result => {
-    console.log('user created')
+    console.log(`user created: ${user_email}`)
   })
 }
 
