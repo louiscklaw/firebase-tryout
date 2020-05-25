@@ -1,13 +1,45 @@
+
 // listen for auth status change
 auth.onAuthStateChanged( user => {
   // user login get user
   // user logout get null
+
     if(user){
-      console.log('user logged in: ', user)
+      // console.log('user logged in: ', user)
+
+      // show users the record
+      db.collection('guides').onSnapshot((snapshot) => {
+        setupGuides(snapshot.docs)
+        setupUI(user)
+      })
     }else{
-      console.log( 'user logged out' )
+      // match /guides/{guideId} {
+    	//   allow read, write: if request.auth.uid != null
+      // }
+      setupGuides([])
+      setupUI()
     }
+
 } )
+
+// create new guide
+const createForm = document.querySelector('#create-form');
+createForm.addEventListener('submit',(e) => {
+  e.preventDefault();
+  db.collection('guides')
+    .add({
+      title: createForm['title'].value ,
+      content:createForm['content'].value
+    }).then(() => {
+      // close the modal and reset form
+      const modal = document.querySelector("#modal-create")
+      M.Modal.getInstance(modal).close();
+      createForm.reset();
+    }).catch((err) => {
+      console.log(err.message)
+    })
+
+})
 
 // signup
 const signupForm = document.querySelector( '#signup-form' );
