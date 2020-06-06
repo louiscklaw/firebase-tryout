@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "fir-tryout-f4e7a"
+  },
+  "targets": {
+    "fir-tryout-f4e7a": {
+      "hosting": {
+        "performance-monitor-tryout": [
+          "performance-monitor"
+        ]
+      }
+    }
+  }
+}

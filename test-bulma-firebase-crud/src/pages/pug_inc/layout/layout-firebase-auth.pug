@@ -1,0 +1,23 @@
+doctype html
+html(lang='en')
+  head
+    block title
+    include inc/head.pug
+
+  body
+    .body
+      block body
+        //- include ../pug_inc/utils/sentry/sentry_init.html
+        include inc/utils/google_analytics/ga_init.html
+
+        block navbar
+        .container
+          .columns
+            .column.is-full
+              block content
+            //- include content.pug
+
+      include inc/scripts/default-scripts.pug
+      block script
+
+    include inc/footer/index.pug

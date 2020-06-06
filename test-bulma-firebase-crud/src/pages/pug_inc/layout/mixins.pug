@@ -1,0 +1,18 @@
+
+mixin helloworld
+  p helloworld
+
+mixin breadcrumb(list)
+  - var n = 0;
+  nav.breadcrumb(aria-label="breadcrumbs")
+    ul
+      while n < list.length
+        if n == list.length-1
+          li.is-active
+            a #{list[n++]}
+        else
+          li
+            a #{list[n++]}
+      //- each list_item in list
+      //-   li
+      //-     a #{list_item}

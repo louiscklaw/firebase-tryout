@@ -1,0 +1,12 @@
+extends pug_inc/layout/layout-bulma.pug
+include pug_inc/mixins.pug
+
+block title
+  title inputs
+
+block append content
+  +breadcrumb(['components','input'])
+
+  h3.subtitle.is-3 bulma inputs
+
+  include pug_inc/static/bulma_inputs.html

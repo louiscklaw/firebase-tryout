@@ -1,0 +1,12 @@
+extends pug_inc/layout/layout-bulma.pug
+include pug_inc/mixins.pug
+
+block title
+  title login
+
+block append content
+  section.section
+    .container
+      +breadcrumb(['pages','login'])
+
+      h1.subtitle.is-1 login

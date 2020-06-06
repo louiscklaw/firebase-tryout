@@ -1,0 +1,17 @@
+extends pug_inc/layout/layout-bulma.pug
+include pug_inc/mixins.pug
+
+block title
+  title tables
+
+block append content
+  +breadcrumb(['components','crud_test', 'list'])
+
+  h3.subtitle.is-3 list records
+
+  #list_record_table
+  //- include pug_inc/static/bulma_tables.html
+  include pug_inc/static/bulma_pagiation.html
+
+block script
+  script(src="js/crud_test.js")

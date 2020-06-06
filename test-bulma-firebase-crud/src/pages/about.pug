@@ -1,0 +1,36 @@
+extends pug_inc/layout/layout-home.pug
+include pug_inc/mixins.pug
+
+block title
+  title about
+
+block append content
+    section.section
+      .container
+        +breadcrumb(['about','about'])
+
+      .content_container
+        h1.subtitle.is-1 About
+
+
+      .content_container
+        h3.subtitle.is-3 Credits
+        ul
+          li
+            a(href="//bulmathemes.com/" target="_blank") bulmathemes.com
+          li
+            a(href="//www.github.com/pajax" target="_blank") pajax
+
+      .content_container
+        h3.subtitle.is-3 github
+        ul
+          li
+            a(href="https://github.com/louiscklaw/bulma-admin-templates" target="_blank") louiscklaw/bulma-admin-templates
+          li
+            a(href="https://github.com/BulmaTemplates/bulma-templates/blob/master/templates/admin.html" target="_blank") origional
+
+      .content_container
+        h3.subtitle.is-3 Home page
+        ul
+          li
+            a(href="https://lousicklaw.github.io" target="_blank") lousicklaw.github.io

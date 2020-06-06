@@ -1,0 +1,15 @@
+extends pug_inc/layout/layout-bulma.pug
+include pug_inc/mixins.pug
+
+block title
+  title chartjs
+
+block head_append
+  script(src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0")
+
+block append content
+  section.section
+    .container
+      +breadcrumb(['components','chartjs'])
+      h1.subtitle.is-1 chartjs
+      include pug_inc/static/chartjs.html

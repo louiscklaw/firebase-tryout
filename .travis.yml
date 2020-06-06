@@ -1,0 +1,31 @@
+
+language: node_js
+node_js:
+  - 8
+
+cache:
+  npm: true
+
+import:
+  - credentials.yml
+  - firebase_credentials.yml
+
+jobs:
+  include:
+    - stage: Deploy
+      name: deploy to firebase
+      install:
+        - curl -sL https://firebase.tools | bash
+      script:
+        - cd firebase-hosting-tryout
+        - ./build.sh
+        - cd ..
+
+        - cd firebase-functions-tryout
+        - ./build.sh
+        - cd ..
+
+    - stage: Merge
+      script:
+        - wget https://raw.githubusercontent.com/louiscklaw/travis-playlist/master/travis-build-merger/merge_if_success.sh
+        - bash merge_if_success.sh

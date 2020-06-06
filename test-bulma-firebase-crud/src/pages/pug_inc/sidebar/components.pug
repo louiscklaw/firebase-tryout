@@ -1,0 +1,58 @@
+-
+  pages = {
+    login:'login.html',
+    '404': '404.html'
+    }
+
+-
+  crud_pages ={
+    list: 'test_list.html',
+    add: 'test_add.html'
+  }
+-
+  first_layer_menu = {
+    inputs:'0',
+    table:'0',
+    typography:'0',
+    form:'0',
+    elements:'0',
+    pages: pages,
+    chartjs:'0',
+    crud_test: crud_pages
+    }
+
+- test = {test: 'test', inputs:0}
+
+p.menu-label Components
+ul.menu-list
+  each second_layer_menu, text in first_layer_menu
+    li
+      if typeof(second_layer_menu) == 'string'
+        if second_layer_menu == '0'
+          a(href=text+'.html').js-Pjax #{text}
+        else
+          a(href=second_layer_menu).js-Pjax #{text}
+      else
+        li
+          a #{text}
+          ul
+            each third_layer_menu, text in second_layer_menu
+              if typeof(third_layer_menu)== 'string'
+                if (third_layer_menu=='0')
+                  li
+                    a(href=text+'.html').js-Pjax #{text}
+                else
+                  li
+                    a(href=third_layer_menu).js-Pjax #{text}
+              else
+                each link, text in third_layer_menu
+                  li
+                    a(href=link).js-Pjax #{text}
+
+  //- li
+  //-   a pages
+  //-   ul
+  //-     li
+  //-       a(href="login.html").js-Pjax login
+  //-     li
+  //-       a(href="page_404.html").js-Pjax 404

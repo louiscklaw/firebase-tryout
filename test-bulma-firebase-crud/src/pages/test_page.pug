@@ -1,0 +1,23 @@
+extends pug_inc/layout/layout-firebase-auth.pug
+
+block title
+  title debug_crud
+
+//- block sidebar
+  p helloworld
+  //- include pug_inc/sidebar/debug_sidemenu.pug
+  //- include sidebar.pug
+
+include pug_inc/nav/mixins.pug
+block navbar
+  +navbar('Home')
+
+block content
+  .column.is-full
+    p helloworld
+
+//- block script
+//-   script(src="js/test_page.js")
+//-   //- script(src="js/firebase_debug.js")
+
+//-   //- script(src="/js/firebase_auth.js")

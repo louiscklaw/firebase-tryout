@@ -1,0 +1,62 @@
+.container
+  .columns
+    .column.is-half
+      .field
+        label.label(for="") Team
+        .control
+          input.input#add_team(type="text" placeholder="Team")
+
+  .columns
+    .column.is-one-fifth
+      .field
+        label.label(for="") Pld
+        .control
+          input.input#add_pld(type="text" placeholder="Team")
+    .column.is-one-fifth
+      .field
+        label.label(for="") W
+        .control
+          input.input#add_w(type="text" placeholder="Team")
+    .column.is-one-fifth
+      .field
+        label.label(for="") D
+        .control
+          input.input#add_d(type="text" placeholder="Team")
+    .column.is-one-fifth
+      .field
+        label.label(for="") L
+        .control
+          input.input#add_l(type="text" placeholder="Team")
+    .column.is-one-fifth
+      .field
+        label.label(for="") GF
+        .control
+          input.input#add_gf(type="text" placeholder="Team")
+  .columns
+    .column.is-one-fifth
+      .field
+        label.label(for="") GA
+        .control
+          input.input#add_ga(type="text" placeholder="Team")
+    .column.is-one-fifth
+      .field
+        label.label(for="") GD
+        .control
+          input.input#add_gd(type="text" placeholder="Team")
+    .column.is-one-fifth
+      .field
+        label.label(for="") Pts
+        .control
+          input.input#add_pts(type="text" placeholder="Team")
+  .columns
+    .column.is-full
+      .field
+        label.label(for="") Qualification or relegation
+        .control
+          textarea.textarea(placeholder="test textarea" rows="10")
+
+  .columns
+    .column.is-full
+      .buttons
+        button.button.is-rounded.is-info#save_new_record Save
+        button.button.is-rounded.is-light#cancel_add Cancel

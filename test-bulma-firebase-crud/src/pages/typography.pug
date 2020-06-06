@@ -1,0 +1,16 @@
+extends pug_inc/layout/layout-bulma.pug
+include pug_inc/mixins.pug
+
+block title
+  title tables
+
+block append content
+  section.section
+    .container
+      +breadcrumb(['components','typography'])
+
+      h1.subtitle.is-1 Typography
+
+      .columns
+        .column.is-full
+          a.button Button
