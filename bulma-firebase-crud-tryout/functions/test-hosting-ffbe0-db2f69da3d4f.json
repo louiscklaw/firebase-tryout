@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "bulma-crud",
+  "private_key_id": "944f75ad409fc0daad4d9b7235d436439816b29a",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDKdJNYZBTPEYla\n62Tjhsp9OrXfRWYzClFRa/aD9lT1hKy9bdEgTewwdSwmYDvnwGKKCQMXtl4vcLh6\nYEo2gfJReJBtshHi3G2iQoOiRnlErh9ZUwyt4vt6adbSLA8xofMMSbxRJUVN0Cre\nXn9g+k5py/rfT6JFKgkOdiQ/ItQeOL4SpxcbN2pQ+vmdAKpxs6ZLQ9iDJa9yAT2T\nJuT7afMBob/6BQQrehZfwPaUjwrZmQKkfsXoPVHPXz6zkK5fSrjifAAioEwwDdKl\nMmCQSFCgXudFosg3UHoRsUSoX4Eov9R0fuwXF6ASjaE+ywVgqQWrnaJ24r39t1A3\nIZ7tl6ElAgMBAAECggEAKrooJ6k1kA8AKVFRIUi+/udvX0/W9hIpH9E0fVy1SPyn\ndTISRupTHNX5y56XPf2m/kFRJwW8wm/cay1btD3ADYwvlQsWBcYmGC7H960+Zi2G\nXbRukls7XjYsmX4ldcDbWd5M8WY3hmjWx0fzw5yIBIGBcHQux8CLmUL7OtznnfnU\n/l7l6qrx6oPXAJoJGcZiX5SVUQwT0JkOKu+eAVIkye2pjL2HXp/Hf7xCKajxCa2F\nGV/x6dxrs2DyCBPOmgY8q/T5+Xxsmg6bq6F8/3hWy2c76cxFOIzZ8JpP0RqYn1Dw\nVRTM4d9zQipVEkQPq660dM/qRBELRwxtJ+QxFpQYIQKBgQDwJFcgyM8FJtUUeYRL\nLO4Yz5Qq3sUTsxb4D5440CchRdO4dxM6efmZvLCeccyJinC/lwwOVd7BgCOBHPzH\nL4LJPuzYfS74u42qfEqXrqMpWyifmHhp97o2gWDP/4VBqr0WZ7TMmLJpjGinpUrO\nC/apN0mbm3p3LBPbxwfCkPT+oQKBgQDX0yJYtqnQIeb5Wx9jro8f8HylkxB478tv\ngX4dRdnNiRBVO1d5JkHiFo8GbO6SKMYH0SjTFrSxfYHfQ7ndr3xL0+RoYHw/y2CI\n9NnfeOI2tPQt3YQw6hRdWOwIcwougLUNs8c48dxuMRXj+/AAU9Cy+5fPKhUiIMrS\n7JNaXpWoBQKBgQDOHqMaZMIsrdQfKt4+mGYVrbaDxYprCkEg0mcAZMnxaTn9D1fV\nzXRMXQVMOmlRdR6plECo3VPByvauj+74GPOtQPGSMIDsxi8msmBkKWWqza/krL5O\nVm/i8NHkNnJultqOLJ2nLzmUFwyNOPcoPGSPggEQKzfGqnKxJfinLDzdgQKBgQCP\n2+g1AezHExIGfDq8EwrL21z6cMC2HACaXtJVaM35NrdwWJHB60JXFXpYahvLyOnX\nJA/2RFhFRsderqIhpmtPj/nbqRSo4UODhtIDJ2yB0rRALjuC70SLxE3wg93xiVEl\nxQOybWTk/kr9IF2lmjiuVQ2nxQE5Mmp/lbnSruFKkQKBgQC8zmgop0dC9F3Ud09Z\ntwZgeoZLJf46RpXd5+cXnrDa8sIEiVttqlACWr0b9UD4YtMPwBxmEvM6J0ZPr4Ka\n3X+FBh6MVz4BoeRr7hDE5ZrSgX3NEYYEb7/jWo+2Diqlx7/ua7TUPBw8H8M8RFed\n1dr9o/Fkl/r5UEhj4ijsHe86/A==\n-----END PRIVATE KEY-----\n",
+  "client_email": "bulma-crud@appspot.gserviceaccount.com",
+  "client_id": "102206252589097001005",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/bulma-crud%40appspot.gserviceaccount.com"
+}

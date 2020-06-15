@@ -1,0 +1,121 @@
+include inc/mixins.pug
+
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    title firebase API test dashboard!
+
+    link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.css")
+
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js")
+
+    script(src="https://use.fontawesome.com/releases/v5.3.1/js/all.js")
+
+    script(src="https://www.gstatic.com/firebasejs/6.0.1/firebase.js")
+    script(src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js")
+    link(rel="stylesheet", href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css")
+
+  body
+    section.section
+      .container
+        .columns.is-multiline
+            .column.is-full
+              h3.title.is-3 sessions
+            .column.is-full
+                pre#login-debug
+            .column.is-one-quarter
+                .column-container
+                    h3.title.is-4 login
+                    div(id="firebaseui-auth-container")
+                    button.button(id="google-login") google login test
+                    button.button(onclick="checkCookie(this)") check cookie
+            .column.is-one-quarter
+                .column-container
+                    h3.title.is-4 logout
+                    button.button(id='logout') logout
+            .column.is-one-quarter
+                .column-container
+                    h3.title.is-4 login-status
+                    pre.login-status
+                    button.button(onclick="updateLoginStatus(this)") query
+                    button.button(onclick="getIDToken(this)") getIDToken
+                    button.button(onclick="hello_user(this)") hello_user
+
+            .column.is-one-quarter
+                .column-container
+                    h3.title.is-4 column
+
+            .column.is-full
+              h3.title.is-3 user records
+            .column.is-one-quarter
+              .column-container
+                h3.title.is-4 add user
+                input.input#add_user_email(placeholder="add user email")
+                button.button(onclick="addUser()") Add user
+            .column.is-one-quarter
+              .column-container
+                h3.title.is-4 update user
+                .select
+                  select#update_user_list(name="")
+                input.input#custom_field(placeholder="custom field")
+                button.button(onclick="updateUser()") Update user
+            .column.is-one-quarter
+              .column-container
+                h3.title.is-4 remove user
+                .select
+                  select#remove_user_list
+                button.button(onclick="removeUser()") remove user
+            .column.is-one-quarter
+              .column-container
+                h3.title.is-4 reserved
+                button.button#get_users(onclick="get_users()") get users
+                button.button#get_users(onclick="user_helloworld()") user_helloworld
+                button.button#get_users(onclick="link_test()") link_test
+                button.button#get_users(onclick="check_user()") check users
+
+            .column.is-full
+              h3.title.is-3 data records
+
+            .column.is-full
+                .column-container
+                    h3.title.is-4 list
+                    pre#record_list
+                    button.button(onclick="listRecords()") list
+            .column.is-one-quarter
+                .column-container
+                    h3.title.is-4 create
+                    input.input#create_winner(placeholder="winner" value="test winner")
+                    input.input#create_losser(placeholder="losser" value="test losser")
+                    input.input#create_title(placeholder="title" value="test title")
+                    a.button(onclick="createRecord()") create
+                    a.button(onclick="crudHelloworld()") helloworld
+            .column.is-one-quarter
+                .column-container
+                    h3.title.is-4 read
+                    .select
+                        select#read_record_list(name="" onchange="readSelectListChange()")
+                    input.input#read_winner(placeholder="winner")
+                    input.input#read_losser(placeholder="losser")
+                    input.input#read_title(placeholder="title")
+
+            .column.is-one-quarter
+                .column-container
+                    h3.title.is-4 update
+                    .select
+                        select#update_record_list(name="" onchange="updateSelectListChange()")
+                    input.input#update_winner(placeholder="winner")
+                    input.input#update_losser(placeholder="losser")
+                    input.input#update_title(placeholder="title")
+                    a.button(onclick="clickUpdateRecord(this);") update record
+
+            .column.is-one-quarter
+                .column-container
+                    h3.title.is-4 delete
+
+                    .select
+                        select#delete_record_list(name="")
+                    a.button(onclick="clickDeleteRecord(this);") delete record
+
+    script(src="js/app.js")

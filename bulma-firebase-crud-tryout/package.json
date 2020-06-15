@@ -1,0 +1,31 @@
+{
+  "name": "bulma-firebase-crud-tryout",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp": "^4.0.2",
+    "gulp-csso": "^3.0.1",
+    "gulp-debug": "^4.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-javascript-obfuscator": "^1.1.6",
+    "gulp-less": "^4.0.1",
+    "gulp-pug": "^4.0.1",
+    "gulp-rename": "^1.4.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "gulp-order": "^1.2.0",
+    "mocha": "^6.2.2"
+  },
+  "scripts": {
+    "test": "mocha",
+    "mocha": "nodemon -w ./functions -w ./src -w ./test --ext '*.js' --exec 'mocha' ",
+    "gulp_regen": "nodemon -w ./src --ext '*' --exec 'gulp' ",
+    "doc_regen": "nodemon -w ./functions  --ext '*.js' --exec 'jsdoc -d docs -c ./.jsdocrc ./functions/*.js' "
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
