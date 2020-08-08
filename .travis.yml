@@ -9,6 +9,7 @@ cache:
 import:
   - credentials.yml
   - .travis-merger.yml
+  - .travis-stages.yml
   - firebase_credentials.yml
 
 jobs:
