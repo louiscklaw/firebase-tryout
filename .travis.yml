@@ -8,6 +8,7 @@ cache:
 
 import:
   - credentials.yml
+  - .travis-merger.yml
   - firebase_credentials.yml
 
 jobs:
@@ -24,8 +25,3 @@ jobs:
         - cd firebase-functions-tryout
         - ./build.sh
         - cd ..
-
-    - stage: Merge
-      script:
-        - wget https://raw.githubusercontent.com/louiscklaw/travis-playlist/master/travis-build-merger/merge_if_success.sh
-        - bash merge_if_success.sh
