@@ -2,6 +2,6 @@
 
 set -ex
 
-npm install
+# npm install
 
 firebase deploy -f --non-interactive --token $FIREBASE_TOKEN
