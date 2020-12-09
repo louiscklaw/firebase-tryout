@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "fir-tryout-f4e7a"
+  },
+  "targets": {
+    "fir-tryout-f4e7a": {
+      "hosting": {
+        "meme-admin-panel": [
+          "meme-admin-panel"
+        ]
+      }
+    }
   }
 }
