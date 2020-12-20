@@ -2,5 +2,6 @@
 
 set -ex
 
+export GOOGLE_APPLICATION_CREDENTIALS=$PWD/credentials.json
 
 firestore-import --backupFile ./backups/myDatabase.json
