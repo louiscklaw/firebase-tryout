@@ -3,6 +3,8 @@
 **/docs
 **/public
 
+*.json
+
 # Logs
 logs
 *.log
