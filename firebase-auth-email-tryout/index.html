@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.css" media="screen,projection" />
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+  <div>login by email test</div>
+
+
+  <div class="row">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="email" type="email" class="validate" value="user1@gmail.com" />
+          <label for="email">Email</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="password" type="password" class="validate" value="123456" />
+          <label for="password">Password</label>
+        </div>
+      </div>
+
+      <input type="submit" value="Submit">
+
+    </form>
+  </div>
+
+  <div style="width:50%; margin: auto; text-align:center;">
+
+    <button style="display:none; margin:auto;" class="waves-effect waves-light btn" id="btn_login">login</button>
+    <button style="display:none; margin:auto;" class="waves-effect waves-light btn" id="btn_logout">logout</button>
+
+  </div>
+
+
+  <div>
+    test create user
+    <div>
+      <div class="row">
+        <form class="col s12">
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="create_user_email" type="email" class="validate" value="user1@gmail.com" />
+              <label for="email">Email</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="create_user_password" type="password" class="validate" value="123456" />
+              <label for="password">Password</label>
+            </div>
+          </div>
+
+        </form>
+        <button id="create_user_button">create user</button>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div id="firebaseui-auth-container"></div>
+
+  <!--JavaScript at end of body for optimized loading-->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.js">
+  </script>
+
+
+  <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-auth.js"></script>
+  <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+
+
+  <script>
+    var firebaseConfig = {
+      apiKey: "AIzaSyBnmrMAfoQvVRgXCIPG2wLiGO15s7u4bRY",
+      authDomain: "fir-tryout-f4e7a.firebaseapp.com",
+      databaseURL: "https://fir-tryout-f4e7a.firebaseio.com",
+      projectId: "fir-tryout-f4e7a",
+      storageBucket: "fir-tryout-f4e7a.appspot.com",
+      messagingSenderId: "859668436628",
+      appId: "1:859668436628:web:32fcc829845132db900681",
+      measurementId: "G-Z001Y7HBM2"
+    };
+    // Initialize Firebase
+    firebase.initializeApp( firebaseConfig );
+    const auth = firebase.auth();
+
+    var signin_button = document.querySelector( '#btn_login' )
+    var signout_button = document.querySelector( '#btn_logout' )
+    var current_user_label = document.querySelector( '#current_user' )
+
+    window.addEventListener( "DOMContentLoaded", () => {
+      signin_button.addEventListener( 'click', () => {
+        let email = document.querySelector('#email').value
+        let password = document.querySelector('#password').value
+        firebase.auth().signInWithEmailAndPassword(email, password)
+          .then((user) => {
+            alert('login success')
+          })
+          .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+
+            alert("login failed")
+          });
+      })
+    })
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        var uid = user.uid;
+
+        signin_button.style.display='none'
+        signout_button.style.display="block"
+      } else {
+        // User is signed out
+        // ...
+        signin_button.style.display='block'
+        signout_button.style.display="none"
+      }
+    });
+
+    var create_user_button = document.querySelector( '#create_user_button' )
+
+    window.addEventListener( "DOMContentLoaded", () => {
+      create_user_button.addEventListener( 'click', () => {
+        var create_user_email = document.querySelector('#create_user_email').value
+        var create_user_password = document.querySelector('#create_user_password').value
+
+        firebase.auth().createUserWithEmailAndPassword(create_user_email, create_user_password)
+          .then((user) => {
+            // Signed in
+            // ...
+            alert('create user success')
+          })
+          .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // ..
+            alert(errorMessage)
+          });
+
+      })
+    })
+
+  </script>
+  <!-- <script src="app.js"></script> -->
+</body>
+
+</html>
