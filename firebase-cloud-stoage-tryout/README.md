@@ -1,0 +1,3 @@
+# netninja
+
+firebase firestore tryout

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-storage.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+  <h1>Cloud Cafe</h1>
+
+  <div class="content">
+
+      <form id="add-cafe-form">
+        <input type="text" name="name" placeholder="Cafe name">
+        <input type="text" name="city" placeholder="Cafe city">
+        <button>Add cafe</button>
+
+      </form>
+
+      <ul id="cafe-list"></ul>
+
+  </div>
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyBnmrMAfoQvVRgXCIPG2wLiGO15s7u4bRY",
+      authDomain: "fir-tryout-f4e7a.firebaseapp.com",
+      databaseURL: "https://fir-tryout-f4e7a.firebaseio.com",
+      projectId: "fir-tryout-f4e7a",
+      storageBucket: "fir-tryout-f4e7a.appspot.com",
+      messagingSenderId: "859668436628",
+      appId: "1:859668436628:web:32fcc829845132db900681",
+      measurementId: "G-Z001Y7HBM2"
+    };
+    // Initialize Firebase
+    firebase.initializeApp( firebaseConfig );
+    var storage = firebase.storage();
+
+    firebase.analytics();
+
+    var storageRef = firebase.storage().ref();
+    var mountainsRef = storageRef.child('mountains.jpg');
+    var mountainImagesRef = storageRef.child('images/foo/bar/foo/bar/helloworld/mountains.txt');
+
+
+    var Uint8arrayFileRef = storageRef.child('images/foo/bar/foo/bar/helloworld/Uint8arrayFileRef.txt');
+
+    var bytes = new Uint8Array([0x48, 0x65, 0x6c, 0x6c, 0x6f, 0x2c, 0x20, 0x77, 0x6f, 0x72, 0x6c, 0x64, 0x21]);
+    Uint8arrayFileRef.put(bytes).then(function(snapshot) {
+      console.log('Uploaded an array!');
+    });
+
+
+    var Base64FileRef = storageRef.child('images/foo/bar/foo/bar/helloworld/Base64FileRef.txt');
+    var base64TestString = '5b6p5Y+344GX44G+44GX44Gf77yB44GK44KB44Gn44Go44GG77yB';
+    Base64FileRef.putString(base64TestString, 'base64').then(function(snapshot) {
+      console.log('Uploaded a base64 string!');
+    });
+
+    var DataURLFileRef = storageRef.child('images/foo/bar/foo/bar/helloworld/DataURLFileRef.txt');
+    var DataURLTestString = 'data:text/plain;base64,5b6p5Y+344GX44G+44GX44Gf77yB44GK44KB44Gn44Go44GG77yB';
+    DataURLFileRef.putString(DataURLTestString, 'data_url').then(function(snapshot) {
+      console.log('Uploaded a data_url string!');
+    });
+
+
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch('helloworld.png')
+        .then(response => response.blob())
+        .then(data_blob => {
+          console.log('data_blob',data_blob)
+          var file = data_blob
+          var metadata = { contentType: 'image/png' };
+          var uploadTask = storageRef.child('images/' + 'helloworld.png').put(file, metadata);
+
+          uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+            function(snapshot) {
+              // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+              var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              console.log('Upload is ' + progress + '% done');
+              switch (snapshot.state) {
+                case firebase.storage.TaskState.PAUSED: // or 'paused'
+                  console.log('Upload is paused');
+                  break;
+                case firebase.storage.TaskState.RUNNING: // or 'running'
+                  console.log('Upload is running');
+                  break;
+              }
+            }, function(error) {
+
+            // A full list of error codes is available at
+            // https://firebase.google.com/docs/storage/web/handle-errors
+            switch (error.code) {
+              case 'storage/unauthorized':
+                // User doesn't have permission to access the object
+                break;
+
+              case 'storage/canceled':
+                // User canceled the upload
+                break;
+
+              case 'storage/unknown':
+                // Unknown error occurred, inspect error.serverResponse
+                break;
+            }
+          }, function() {
+            // Upload completed successfully, now we can get the download URL
+            uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+              console.log('File available at', downloadURL);
+            });
+          });
+
+        })
+
+    })
+
+
+  </script>
+  <script src="app.js" ></script>
+</body>
+
+</html>
