@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!--Import Google Icon Font-->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <!--Import materialize.css-->
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.css"
+      media="screen,projection"
+    />
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div>
+      <a href="index.html">back</a>
+    </div>
+    <form id="test-login" onsubmit="()=>{return false}">
+      <input name="username" placeholder="username" />
+      <input name="password" placeholder="password" type="password" />
+
+      <button type="submit">login</button>
+    </form>
+
+    <!--JavaScript at end of body for optimized loading-->
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.js"
+    ></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-admin.js"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+
+    <script>
+      var firebaseConfig = {
+        apiKey: "AIzaSyBnmrMAfoQvVRgXCIPG2wLiGO15s7u4bRY",
+        authDomain: "fir-tryout-f4e7a.firebaseapp.com",
+        databaseURL: "https://fir-tryout-f4e7a.firebaseio.com",
+        projectId: "fir-tryout-f4e7a",
+        storageBucket: "fir-tryout-f4e7a.appspot.com",
+        messagingSenderId: "859668436628",
+        appId: "1:859668436628:web:32fcc829845132db900681",
+        measurementId: "G-Z001Y7HBM2",
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+
+      const ele_login_form = document.querySelector("#test-login");
+      ele_login_form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        let email = ele_login_form.elements.username.value;
+        let password = ele_login_form.elements.password.value;
+
+        auth.list;
+      });
+    </script>
+  </body>
+</html>
