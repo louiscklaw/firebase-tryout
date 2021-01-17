@@ -21,12 +21,9 @@
     <div>
       <a href="index.html">back</a>
     </div>
-    <form id="test-login" onsubmit="()=>{return false}">
-      <input name="username" placeholder="username" />
-      <input name="password" placeholder="password" type="password" />
 
-      <button type="submit">login</button>
-    </form>
+    <button id="list-current-user">list current user</button>
+    <div id="list-result"></div>
 
     <!--JavaScript at end of body for optimized loading-->
     <script
@@ -35,8 +32,8 @@
     ></script>
 
     <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-admin.js"></script>
     <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
 
     <script>
@@ -53,16 +50,28 @@
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
       const auth = firebase.auth();
+      const db = firebase.firestore();
 
-      const ele_login_form = document.querySelector("#test-login");
-      ele_login_form.addEventListener("submit", (event) => {
-        event.preventDefault();
+      document
+        .querySelector("#list-current-user")
+        .addEventListener("click", () => {
+          var unsubscribe = db
+            .collection("user_info")
+            .onSnapshot(function (qss) {
+              let result = [];
+              qss.forEach((doc) => {
+                result.push(doc.data());
+              });
+              document.querySelector("#list-result").innerHTML = JSON.stringify(
+                result
+              );
+            });
 
-        let email = ele_login_form.elements.username.value;
-        let password = ele_login_form.elements.password.value;
+          // Later ...
 
-        auth.list;
-      });
+          // Stop listening to changes
+          // unsubscribe();
+        });
     </script>
   </body>
 </html>

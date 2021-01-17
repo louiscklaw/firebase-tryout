@@ -16,18 +16,12 @@
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   </head>
 
   <body>
     <div>
       <a href="index.html">back</a>
-    </div>
-    <div style="text-align: center; padding-top: 50px">
-      helloworld google auth, firebase-auth-user-crud
-    </div>
-    <div style="text-align: center; padding-top: 50px; padding-bottom: 10px">
-      current user
-      <div id="current_user"></div>
     </div>
 
     <div style="width: 50%; margin: auto; text-align: center">
@@ -38,19 +32,16 @@
       >
         login
       </button>
-      <button
-        style="display: none; margin: auto"
-        class="waves-effect waves-light btn"
-        id="btn_logout"
-      >
-        logout
-      </button>
     </div>
+
+
+    <button id="load-user-button">load users</button>
+    <div id="user-listing"></div>
 
     <div id="firebaseui-auth-container"></div>
     <form id="new_user_form" name="new_user_form">
-      username <input name="username" placeholder="username" /> password
-      <input name="password" placeholder="password" />
+      <div>username</div>
+      <input name="username" placeholder="username" />
       <button type="submit">Submit</button>
     </form>
 
@@ -87,39 +78,60 @@
       const db = firebase.firestore();
 
       const ele_new_user_form = document.querySelector("#new_user_form");
-      ele_new_user_form.addEventListener("submit", (event) => {
-        event.preventDefault();
+      const ele_load_users = document.querySelector('#load-user-button')
 
-        let email = ele_new_user_form.elements.username.value;
-        let password = ele_new_user_form.elements.password.value;
 
-        auth
-          .createUserWithEmailAndPassword(email, password)
-          .then((user) => {
-            alert("user add ok");
-            // alert(`user.id ${JSON.stringify(user, null, 2)}`);
 
-            console.log("user", user);
-
-            db.collection("user_info")
-              .doc(user.user.uid)
-              .set({
-                email: user.user.email,
-                ac_enabled: true,
-              })
-              .then(function (docRef) {
-                console.log("Document written with ID: ", docRef.id);
-              })
-              .catch(function (error) {
-                console.error("Error adding document: ", error);
-              });
-          })
-          .catch((err) => {
-            alert(err.message);
-          });
 
         console.log("Form submission cancelled.");
-      });
+
+
+      document.addEventListener("DOMContentLoaded", () => {
+        ele_load_users.addEventListener('click', () => {
+          // alert('helloworld')
+
+          db.collection("user_info").onSnapshot((qss) => {
+          let results = [];
+          qss.forEach((doc) => {
+            results.push({
+              id: doc.id,
+              data: doc.data(),
+            });
+          });
+
+          let list_html_result = results.map((result) => {
+            return `
+              <div >
+                <div style="display: inline-flex; flex-flow:row;">
+                  <pre>${JSON.stringify(result)}</pre>
+                  <button id="${result.id}" onclick="handleDeleteOnClick(this)">delete</button>
+                </div>
+              </div>
+              `;
+          });
+
+          document.querySelector(
+            "#user-listing"
+          ).innerHTML = list_html_result.join("");
+        })
+      })
+    })
+
+    function handleDeleteOnClick(ele) {
+      let doc_id = ele.id;
+      console.log(JSON.stringify(doc_id, null, 2))
+
+      db.collection('user_info').doc(doc_id)
+        .delete()
+        .then(()=>{
+          alert('delete done')
+          alert('delete user from auth requires admin sdk')
+        })
+        .catch((err)=>{
+          alert('error found during delete user from auth')
+        })
+    }
+
     </script>
     <!-- <script src="app.js"></script> -->
   </body>

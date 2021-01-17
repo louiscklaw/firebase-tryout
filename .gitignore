@@ -1,4 +1,5 @@
-.vscode
+firebase-testlab-helloworld-tryout
+**/.vscode
 **/node_modules
 **/docs
 **/public
