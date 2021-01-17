@@ -102,6 +102,7 @@
                 <div style="display: inline-flex; flex-flow:row;">
                   <pre>${JSON.stringify(result)}</pre>
                   <button id="${result.id}" onclick="handleSuspendUserClick(this)">suspend</button>
+                  <button id="${result.id}" onclick="handleResumeUserClick(this)">resume</button>
                 </div>
               </div>
               `;
@@ -120,6 +121,22 @@
       db.collection('user_info').doc(doc_id)
         .set({
           ac_enabled: false
+        },{merge: true})
+        .then(()=>{
+          alert('suspend done')
+
+        })
+        .catch((err)=>{
+          alert('error found during suspend user from auth')
+        })
+    }
+
+    function handleResumeUserClick(ele) {
+      let doc_id = ele.id;
+
+      db.collection('user_info').doc(doc_id)
+        .set({
+          ac_enabled: true
         },{merge: true})
         .then(()=>{
           alert('suspend done')
