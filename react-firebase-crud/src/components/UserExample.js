@@ -14,9 +14,11 @@ export default function UserExample() {
     processDeleteUser(user_id)
       .then(() => {
         alert("delete user done");
+        handleListUser();
       })
       .catch((err) => {
         alert("error during delete user");
+        handleListUser();
       });
   }
 
@@ -36,7 +38,15 @@ export default function UserExample() {
     let updated_user_profile = {
       setting1: e.target.parentNode.elements.setting1.value,
     };
-    processUpdateUser(user_id, updated_user_profile);
+    processUpdateUser(user_id, updated_user_profile)
+      .then(() => {
+        alert("update user done");
+        handleListUser();
+      })
+      .catch((err) => {
+        alert("error during update user", err);
+        handleListUser();
+      });
   }
 
   function UpdateUserForm({ current_value }) {
@@ -105,14 +115,20 @@ export default function UserExample() {
     processAddUser(username, password)
       .then(() => {
         alert("add user done");
+        handleListUser();
       })
       .catch((err) => {
         alert(err);
+        handleListUser();
       });
   }
 
   function AddUser() {
-    const handleDummy = () => {};
+    const handleChange = (e) => {
+      let target_field = document.forms["add-user-form"][e.target.name].value;
+      let target_value = e.target.value;
+      target_field = target_value;
+    };
     return (
       <>
         <form name="add-user-form">
@@ -122,8 +138,8 @@ export default function UserExample() {
               type="text"
               name="username"
               id="username"
-              value="testuser"
-              onChange={handleDummy}
+              defaultValue="testuser"
+              onChange={handleChange}
             />
           </div>
           <div>
@@ -132,8 +148,8 @@ export default function UserExample() {
               type="password"
               name="password"
               id="password"
-              value="testpassword"
-              onChange={handleDummy}
+              defaultValue="testpassword"
+              onChange={handleChange}
             />
           </div>
           <div>
