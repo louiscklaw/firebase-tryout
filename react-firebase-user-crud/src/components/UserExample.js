@@ -1,9 +1,9 @@
 import React from "react";
 
-import { processAddUser } from "src/components/modals/user";
-import { processListUser } from "src/components/modals/user";
-import { processUpdateUser } from "src/components/modals/user";
-import { processDeleteUser } from "src/components/modals/user";
+import { processAddUser } from "src/modals/user";
+import { processListUser } from "src/modals/user";
+import { processUpdateUser } from "src/modals/user";
+import { processDeleteUser } from "src/modals/user";
 
 export default function UserExample() {
   let [users, setUsers] = React.useState([]);
@@ -22,7 +22,7 @@ export default function UserExample() {
       });
   }
 
-  function handleListUser(e) {
+  function handleListUser() {
     processListUser()
       .then((a_d) => {
         setUsers(a_d);

@@ -1,3 +1,6 @@
+import React from "react";
+import bcrypt from "bcryptjs";
+
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
@@ -67,9 +70,10 @@ function processAddUser(username, password) {
   let user_to_add = {
     profile: default_new_user_profile,
     username: username,
-    password: password,
+    password: bcrypt.hashSync(password, 10),
   };
-  console.log("user_to_add", user_to_add);
+
+  // console.log("user_to_add", user_to_add);
 
   let promise = new Promise(function (resolve, reject) {
     test_collection_ref
@@ -84,6 +88,25 @@ function processAddUser(username, password) {
   return promise;
 }
 
+function processLogin(username, password) {
+  let hash_in_db =
+    "$2a$10$slnm0stTWv0iQUGOFvRV2udEURXe4gDlaBr85j3bqTrWBlTVlYJnq";
+
+  let compare_result = bcrypt.compareSync(password, hash_in_db);
+
+  // setDebug({
+  //   // hash: hash,
+  //   hash_in_db: hash_in_db,
+  //   compare_result: compare_result,
+  // });
+  alert(username);
+  alert(password);
+
+  test_collection_ref.where("username", "==", username).get((ss) => {
+    console.log(ss);
+  });
+}
+
 function updateUser() {}
 
 export {
@@ -91,4 +114,5 @@ export {
   processListUser,
   processUpdateUser,
   processDeleteUser,
+  processLogin,
 };
