@@ -1,6 +1,7 @@
 const functions = require("firebase-functions");
 
 var admin = require("firebase-admin");
+var app = admin.initializeApp();
 
 const { createUser } = require("./createUser.js");
 const { listAllUsers } = require("./listAllUsers.js");
