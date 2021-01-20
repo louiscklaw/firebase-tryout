@@ -1,10 +1,24 @@
 import React from "react";
 
-import { addUser, processAddUser } from "src/components/modals/user";
-import { listUser, processListUser } from "src/components/modals/user";
+import { processAddUser } from "src/components/modals/user";
+import { processListUser } from "src/components/modals/user";
+import { processUpdateUser } from "src/components/modals/user";
+import { processDeleteUser } from "src/components/modals/user";
 
 export default function UserExample() {
   let [users, setUsers] = React.useState([]);
+
+  function handleDeleteUser(e) {
+    e.preventDefault();
+    let user_id = e.target.parentNode.elements.user_id.value;
+    processDeleteUser(user_id)
+      .then(() => {
+        alert("delete user done");
+      })
+      .catch((err) => {
+        alert("error during delete user");
+      });
+  }
 
   function handleListUser(e) {
     processListUser()
@@ -16,6 +30,40 @@ export default function UserExample() {
       });
   }
 
+  function handleUpdateUser(e) {
+    e.preventDefault();
+    let user_id = e.target.parentNode.elements.user_id.value;
+    let updated_user_profile = {
+      setting1: e.target.parentNode.elements.setting1.value,
+    };
+    processUpdateUser(user_id, updated_user_profile);
+  }
+
+  function UpdateUserForm({ current_value }) {
+    let current_value_data = current_value.data;
+    console.log("current_value_data", current_value_data);
+    const [setting1_value, setSetting1Value] = React.useState(
+      current_value_data.profile.setting1
+    );
+
+    const handleOnChange = (e) => {
+      setSetting1Value(e.target.value);
+    };
+
+    return (
+      <form name="update-user">
+        <input name="user_id" hidden value={current_value.id} />
+        <input
+          name="setting1"
+          value={setting1_value}
+          onChange={handleOnChange}
+        ></input>
+        <button onClick={handleUpdateUser}>update user</button>
+        <button onClick={handleDeleteUser}>delete user</button>
+      </form>
+    );
+  }
+
   function ListUser() {
     let users_length = users.length;
 
@@ -24,10 +72,10 @@ export default function UserExample() {
         <>
           {users.map((user, idx) => {
             return (
-              <div key={idx}>
-                <div>{JSON.stringify(user, null, 2)}</div>
+              <div key={user.id}>
+                <div>{JSON.stringify(user.data, null, 2)}</div>
                 <div>
-                  <button>update user</button>
+                  <UpdateUserForm current_value={user} />
                 </div>
               </div>
             );

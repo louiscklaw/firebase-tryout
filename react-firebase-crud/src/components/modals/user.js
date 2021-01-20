@@ -13,13 +13,36 @@ const default_new_user_profile = {
   setting3: false,
 };
 
-function processUpdateUser({ id, profile }) {
-  return test_collection_ref
-    .doc(id)
-    .set({ profile: profile }, { merge: true })
-    .then(() => {
-      alert("update user done");
-    });
+function processDeleteUser(id) {
+  let promise = new Promise(function (resolve, reject) {
+    test_collection_ref
+      .doc(id)
+      .delete()
+      .then(() => {
+        resolve();
+      })
+      .catch((err) => {
+        console.log("error during update user profile");
+        reject(err);
+      });
+  });
+  return promise;
+}
+
+function processUpdateUser(id, profile) {
+  let promise = new Promise(function (resolve, reject) {
+    test_collection_ref
+      .doc(id)
+      .set({ profile: profile }, { merge: true })
+      .then(() => {
+        resolve();
+      })
+      .catch((err) => {
+        console.log("error during update user profile");
+        reject(err);
+      });
+  });
+  return promise;
 }
 
 function processListUser() {
@@ -27,7 +50,9 @@ function processListUser() {
     test_collection_ref.onSnapshot(
       (ss) => {
         let docs = ss.docs;
-        let a_d = docs.map((doc) => doc.data());
+        let a_d = docs.map((doc) => {
+          return { id: doc.id, data: doc.data() };
+        });
         resolve(a_d);
       },
       (err) => {
@@ -61,4 +86,9 @@ function processAddUser(username, password) {
 
 function updateUser() {}
 
-export { processAddUser, processListUser, processUpdateUser };
+export {
+  processAddUser,
+  processListUser,
+  processUpdateUser,
+  processDeleteUser,
+};
