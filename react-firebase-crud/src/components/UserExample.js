@@ -17,16 +17,33 @@ export default function UserExample() {
   }
 
   function ListUser() {
+    let users_length = users.length;
+
+    function ShowUser() {
+      return (
+        <>
+          {users.map((user, idx) => {
+            return (
+              <div key={idx}>
+                <div>{JSON.stringify(user, null, 2)}</div>
+                <div>
+                  <button>update user</button>
+                </div>
+              </div>
+            );
+          })}
+        </>
+      );
+    }
+
+    function ShowNoUser() {
+      return <>no user </>;
+    }
+
     return (
       <>
         <button onClick={handleListUser}>list user</button>
-        {users.map((user, idx) => {
-          return (
-            <div key={idx}>
-              <pre>{JSON.stringify(user, null, 2)}</pre>
-            </div>
-          );
-        })}
+        {users_length > 0 ? <ShowUser /> : <ShowNoUser />}
       </>
     );
   }

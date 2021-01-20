@@ -13,7 +13,14 @@ const default_new_user_profile = {
   setting3: false,
 };
 
-function listUser() {}
+function processUpdateUser({ id, profile }) {
+  return test_collection_ref
+    .doc(id)
+    .set({ profile: profile }, { merge: true })
+    .then(() => {
+      alert("update user done");
+    });
+}
 
 function processListUser() {
   let promise = new Promise(function (resolve, reject) {
@@ -31,11 +38,9 @@ function processListUser() {
   return promise;
 }
 
-function dbAddUser(username) {}
-
 function processAddUser(username, password) {
   let user_to_add = {
-    ...default_new_user_profile,
+    profile: default_new_user_profile,
     username: username,
     password: password,
   };
@@ -56,4 +61,4 @@ function processAddUser(username, password) {
 
 function updateUser() {}
 
-export { updateUser, listUser, processAddUser, processListUser };
+export { processAddUser, processListUser, processUpdateUser };
