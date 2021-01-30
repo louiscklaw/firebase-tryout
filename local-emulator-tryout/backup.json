@@ -1,0 +1,9 @@
+{
+  "users": {
+    "alovelace": {
+      "last": "Lovelace",
+      "born": 9999,
+      "first": "Ada"
+    }
+  }
+}
