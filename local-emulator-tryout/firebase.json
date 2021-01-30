@@ -37,6 +37,7 @@
       "port": 5000
     },
     "ui": {
+      "port": 4001,
       "enabled": true
     }
   }
