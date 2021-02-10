@@ -12,6 +12,9 @@ import Select from "@material-ui/core/Select";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import InputBase from "@material-ui/core/InputBase";
 
+import { test_data } from "./test_data";
+const TABLE_USERS_REF = db.collection(db_config.DB_TABLE_USERS);
+
 const BootstrapInput = withStyles((theme) => ({
   root: {
     "label + &": {
@@ -68,10 +71,25 @@ export default function SelectExample() {
         setDebug(doc.data());
       });
   };
+
+  const handleSaveClick = () => {
+    TABLE_USERS_REF.doc(`0xNnfLmW1GVRc430hJrR`)
+      .set({ test_value: age }, { merge: true })
+      .then((doc_ref) => {
+        setDebug(doc_ref, null, 2);
+      });
+  };
+  const handleClearClick = () => {
+    setAge("");
+  };
+
   return (
     <>
       <pre>{JSON.stringify(debug, null, 2)}</pre>
       <h3>hello SelectExample</h3>
+      <Button onClick={handleSaveClick}>Save</Button>
+      <Button>Load</Button>
+      <Button onClick={handleClearClick}>Clear</Button>
       <Select
         labelId="demo-customized-select-label"
         id="demo-customized-select"

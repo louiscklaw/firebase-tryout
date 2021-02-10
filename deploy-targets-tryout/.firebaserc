@@ -1,0 +1,17 @@
+{
+  "projects": {
+    "default": "fir-tryout-f4e7a"
+  },
+  "targets": {
+    "fir-tryout-f4e7a": {
+      "hosting": {
+        "test-hosting1": [
+          "test-hosting1"
+        ],
+        "test-hosting2-22b11": [
+          "test-hosting2-22b11"
+        ]
+      }
+    }
+  }
+}

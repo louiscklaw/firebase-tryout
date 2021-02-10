@@ -11,6 +11,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Chip from "@material-ui/core/Chip";
 
+import { test_data } from "./test_data";
+
 const TABLE_USERS_REF = db.collection(db_config.DB_TABLE_USERS);
 
 const useStyles = makeStyles((theme) => ({
@@ -37,7 +39,7 @@ export default function AutoCompleteMultipleValuesExample() {
   };
 
   const handleClearClick = () => {
-    setTestValue([{ title: "The Kid", year: 1921 }]);
+    setTestValue({ title: "title 1", year: 1 });
   };
 
   return (
@@ -51,23 +53,16 @@ export default function AutoCompleteMultipleValuesExample() {
       </div>
       <div className={classes.root}>
         <Autocomplete
-          multiple
-          id="tags-standard"
-          options={top100Films}
+          id="combo-box-demo"
+          options={test_data}
           getOptionLabel={(option) => option.title}
-          // defaultValue={[top100Films[13]]}
+          style={{ width: 300 }}
           renderInput={(params) => (
-            <TextField
-              {...params}
-              variant="standard"
-              label="Multiple values"
-              placeholder="Favorites"
-            />
+            <TextField {...params} label="Combo box" variant="outlined" />
           )}
+          defaultValue={test_value}
           value={test_value}
-          onChange={(e, new_value) => {
-            setTestValue(new_value);
-          }}
+          onChange={(e, new_value) => setTestValue(new_value)}
         />
       </div>
     </>
