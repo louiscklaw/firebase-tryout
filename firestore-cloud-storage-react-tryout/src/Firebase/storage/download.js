@@ -1,12 +1,5 @@
-import firebase from "firebase/app";
-import "firebase/storage";
-
-var storage = firebase.storage();
-var storageRef = storage.ref();
-
-export default function DownloadFile() {
+export default function DownloadFile({ spaceRef }) {
   const handleDownloadOnClick = () => {
-    var spaceRef = storageRef.child("images/space.jpg");
     spaceRef
       .getDownloadURL()
       .then((url) => {

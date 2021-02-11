@@ -1,9 +1,4 @@
 import React from "react";
-import firebase from "firebase/app";
-import "firebase/storage";
-
-var storage = firebase.storage();
-var storageRef = storage.ref();
 
 export default class FileInput extends React.Component {
   constructor(props) {
@@ -14,8 +9,8 @@ export default class FileInput extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     // alert(`Selected file - ${this.fileInput.current.files[0].name}`);
-    var spaceRef = storageRef.child("images/space.jpg");
-    spaceRef
+
+    this.props.spaceRef
       .put(this.fileInput.current.files[0])
       .then((snapshot) => {
         console.log("snapshot", snapshot);
