@@ -14,6 +14,13 @@ const stripe = new Stripe(functions.config().stripe.secret, {
 
 const card_pay = express();
 const main = express();
+main.use(cors());
+main.use("/api/card_pay", card_pay);
+main.use(bodyParser.json());
+
+card_pay.get("/", async (req, res) => {
+  console.log(req);
+});
 
 // Create and Deploy Your First Cloud Functions
 // https://firebase.google.com/docs/functions/write-firebase-functions
