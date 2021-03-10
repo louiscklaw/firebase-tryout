@@ -5,6 +5,7 @@ const functions = require("firebase-functions");
 
 const express = require("express");
 const cors = require("cors");
+const bodyParser = require("body-parser");
 
 // Create and Deploy Your First Cloud Functions
 // https://firebase.google.com/docs/functions/write-firebase-functions
