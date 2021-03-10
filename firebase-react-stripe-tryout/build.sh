@@ -2,7 +2,7 @@
 
 set -ex
 
-npm install
+# npm install
 
 # firebase deploy  --non-interactive --token $FIREBASE_TOKEN
 
