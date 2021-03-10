@@ -9,7 +9,7 @@ npm install
 cd functions
   npm install
 
-  firebase -f --non-interactive functions:delete helloWorld
+  firebase -f --non-interactive functions:delete helloWorld || true
 
   firebase deploy -f --non-interactive --only functions
 
