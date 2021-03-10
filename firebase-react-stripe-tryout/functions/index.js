@@ -1,14 +1,11 @@
-"use strict";
-
-const path = require("path");
 const functions = require("firebase-functions");
 
 const express = require("express");
 const cors = require("cors");
-const bodyParser = require("body-parser");
+var cookieParser = require("cookie-parser");
 
-// Create and Deploy Your First Cloud Functions
-// https://firebase.google.com/docs/functions/write-firebase-functions
+// const test_app = express();
+// test_app.use(cookieParser());
 
 exports.helloWorld = functions.https.onRequest((request, response) => {
   response.send("Hello from Firebase!");

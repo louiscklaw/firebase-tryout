@@ -14,3 +14,5 @@ cd functions
   firebase deploy -f --non-interactive --only functions
 
 cd ..
+
+git add .
