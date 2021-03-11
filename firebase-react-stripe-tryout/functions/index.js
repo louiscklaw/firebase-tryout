@@ -13,21 +13,19 @@ const stripe = new Stripe(functions.config().stripe.secret, {
   apiVersion: "2020-08-27",
 });
 
+// https://www.npmjs.com/package/cors#enable-cors-for-a-single-route
+
 const stripe_helloworld = express();
+stripe_helloworld.use(cors());
 stripe_helloworld.use(cookieParser());
 stripe_helloworld.post("/", async (req, res) => {
   try {
-    const { amount } = req.body;
-    // Psst. For production-ready applications we recommend not using the
-    // amount directly from the client without verifying it first. This is to
-    // prevent bad actors from changing the total amount on the client before
-    // it gets sent to the server. A good approach is to send the quantity of
-    // a uniquely identifiable product and calculate the total price server-side.
-    // Then, you would only fulfill orders using the quantity you charged for.
-
+    const { amount, currency } = req.body;
+    // https://stripe.com/docs/api/payment_intents/object
     const paymentIntent = await stripe.paymentIntents.create({
       amount,
-      currency: "usd",
+      // https://www.currency-iso.org/en/home/tables/table-a1.html
+      currency,
     });
 
     res.status(200).send(paymentIntent.client_secret);
