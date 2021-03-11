@@ -46,7 +46,8 @@ export default function CheckOut() {
         />
       </div>
       <CheckoutForm
-        price={getDonutPrice(123456)}
+        price={amount}
+        currency={currency}
         onSuccessfulCheckout={() => navigate("/success")}
       />
     </>

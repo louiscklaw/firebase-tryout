@@ -1,6 +1,6 @@
 import React from "react";
-
 import { useState } from "react";
+
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import axios from "axios";
 
@@ -18,7 +18,7 @@ const Row = ({ children }) => {
   return <>{children}</>;
 };
 
-const CheckoutForm = ({ price, onSuccessfulCheckout }) => {
+const CheckoutForm = ({ price, currency, onSuccessfulCheckout }) => {
   const [isProcessing, setProcessingTo] = useState(false);
   const [checkoutError, setCheckoutError] = useState();
 
@@ -49,8 +49,8 @@ const CheckoutForm = ({ price, onSuccessfulCheckout }) => {
       const { data: clientSecret } = await axios.post(
         "https://us-central1-fir-tryout-f4e7a.cloudfunctions.net/stripe_helloworld",
         {
-          amount: "1234",
-          currency: "jpy",
+          amount: price,
+          currency: currency,
         }
       );
 
