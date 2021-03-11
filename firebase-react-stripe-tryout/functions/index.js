@@ -62,7 +62,7 @@ stripe_helloworld.post("/", async (req, res) => {
           .doc(`${"restaurant_id"}/payments/${new_payment_id.id}`)
           .set(
             {
-              payment_id: JSON.stringify(paymentIntent),
+              payment_id: paymentIntent.id,
               amount,
               currency,
               created: admin.firestore.FieldValue.serverTimestamp(),
