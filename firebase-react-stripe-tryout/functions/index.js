@@ -2,6 +2,8 @@
 
 const path = require("path");
 const functions = require("firebase-functions");
+// const admin = require("firebase-admin");
+// admin.initializeApp();
 
 const express = require("express");
 const cors = require("cors");
@@ -21,14 +23,22 @@ stripe_helloworld.use(cookieParser());
 stripe_helloworld.post("/", async (req, res) => {
   try {
     const { amount, currency } = req.body;
-    // https://stripe.com/docs/api/payment_intents/object
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount,
-      // https://www.currency-iso.org/en/home/tables/table-a1.html
-      currency,
-    });
 
-    res.status(200).send(paymentIntent.client_secret);
+    stripe.paymentIntents
+      .create({
+        amount,
+        // https://www.currency-iso.org/en/home/tables/table-a1.html
+        currency,
+      })
+      .then((paymentIntent) => {
+        return paymentIntent;
+      })
+      .then((paymentIntent) => {
+        res.status(200).send(paymentIntent.client_secret);
+      })
+      .catch((err) => {
+        res.status(500).json({ statusCode: 500, message: err.message });
+      });
   } catch (err) {
     res.status(500).json({ statusCode: 500, message: err.message });
   }
