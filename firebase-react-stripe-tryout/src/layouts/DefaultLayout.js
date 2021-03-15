@@ -25,6 +25,9 @@ export default function DefaultLayout({ children }) {
           <li>
             <Link to="/checkout">CheckOut</Link>
           </li>
+          <li>
+            <Link to="/test_stripe_element">test_stripe_element</Link>
+          </li>
         </ul>
       </nav>
       <Elements stripe={stripePromise}>{children}</Elements>
